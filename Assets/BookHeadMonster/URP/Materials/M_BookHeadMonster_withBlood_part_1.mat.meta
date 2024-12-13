@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ac4e5b8b888fc6c4a97ee93fe4347397
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287653
+  packageName: Book Head Monster
+  packageVersion: 1.0
+  assetPath: Assets/BookHeadMonster/URP/Materials/M_BookHeadMonster_withBlood_part_1.mat
+  uploadId: 670856

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 84c2b078bf43e6a4497e4cc46e7798ff
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 287653
+  packageName: Book Head Monster
+  packageVersion: 1.0
+  assetPath: Assets/BookHeadMonster/URP/Materials/M_BookHeadMonster_part_1.mat
+  uploadId: 670856
