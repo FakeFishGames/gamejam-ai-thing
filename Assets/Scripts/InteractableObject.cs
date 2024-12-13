@@ -31,4 +31,8 @@ public class InteractableObject : MonoBehaviour, IInteractable
             outline.enabled = bState;
         }
     }
+
+    public void StopInteract()
+    {
+    }
 }
