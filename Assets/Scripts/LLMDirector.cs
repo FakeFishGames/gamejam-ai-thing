@@ -5,11 +5,58 @@ using System.Collections;
 
 public class LLMDirector : MonoBehaviour
 {
+    public LLMCharacter aiCharacter;
     public LLMCharacter llmDirectorCharacter;
 
     public Animator aiCharacterAnimator;
 
     string llmDirectorMessage;
+
+    public GameObject objectThatCausesAggression;
+
+    public string initialPrompt;
+
+    public string promptOnAngry;
+
+    public string promptOnHostile;
+
+    private float angryToHostileTimer;
+
+    public float AngryToHostileDelay = 30.0f;
+
+    public void Start()
+    {
+        aiCharacter.SetPrompt(initialPrompt);
+    }
+
+    private void SetPromptIfNeeded(LLMCharacter character, string prompt)
+    {
+        if (prompt != character.prompt)
+        {
+            aiCharacter.SetPrompt(prompt);
+        }
+    }
+
+    public void Update()
+    {
+        if (objectThatCausesAggression != null && objectThatCausesAggression.activeInHierarchy)
+        {
+            angryToHostileTimer += Time.deltaTime;
+            if (angryToHostileTimer > AngryToHostileDelay)
+            {
+                SetPromptIfNeeded(aiCharacter, promptOnHostile);
+            }
+            else
+            {
+                SetPromptIfNeeded(aiCharacter, promptOnAngry);
+            }
+        }
+        else
+        {
+            angryToHostileTimer = Mathf.Max(0, angryToHostileTimer - Time.deltaTime);
+            SetPromptIfNeeded(aiCharacter, initialPrompt);
+        }
+    }
 
     public void ReceivePlayerMessage(string message)
     {
@@ -32,6 +79,17 @@ public class LLMDirector : MonoBehaviour
                 if (response == "yes")
                 {
                     Debug.Log("The true name has been revealed, you won the game!");
+                }
+            });
+
+        AskAIDirector(
+            "If the speaker has expressed that they are going to kill or destroy whoever they are speaking to, answer \"yes\", if you don't, respond with \"no\"." +
+            " Only respond with \"yes\" or \"no\".\n The text: " + message,
+            (string response) =>
+            {
+                if (response == "yes")
+                {
+                    Debug.Log("Game over!");
                 }
             });
     }
