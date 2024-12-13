@@ -78,7 +78,7 @@ public class LLMDirector : MonoBehaviour
             {
                 if (response == "yes")
                 {
-                    Debug.Log("The true name has been revealed, you won the game!");
+                    EndGame();
                 }
             });
 
