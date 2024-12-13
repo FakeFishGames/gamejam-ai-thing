@@ -86,6 +86,7 @@ namespace LLMUnitySamples
 
             llmDirector.ReceivePlayerMessage(message);
 
+            llmDirector.StartAICharacterMessage();
             Task chatTask = llmCharacter.Chat(message, (string text) =>
             {
                 aiBubble.SetText(text);

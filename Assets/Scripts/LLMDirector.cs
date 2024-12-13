@@ -5,9 +5,18 @@ public class LLMDirector : MonoBehaviour
 {
     public LLMCharacter llmDirectorCharacter;
 
+    public Animator aiCharacterAnimator;
+
+    string llmDirectorMessage;
+
     public void ReceivePlayerMessage(string message)
     {
         Debug.Log("LLMDirector received player message: " + message);
+    }
+
+    public void StartAICharacterMessage()
+    {
+        aiCharacterAnimator.SetTrigger(Random.Range(0.0f, 1.0f) < 0.5f ? "Speak" : "Spasm");
     }
 
     public void ReceiveAICharacterMessage(string message)
@@ -43,10 +52,14 @@ public class LLMDirector : MonoBehaviour
             llmDirectorMessage = text;
         }, completionCallback: () =>
         {
-            Debug.Log($"AI director was asked: {message}\n\nResponse: {llmDirectorMessage}");
+            Debug.Log($"AI director response: {llmDirectorMessage}. Question: {message}");
             callback(llmDirectorMessage);
         });
     }
 
-    string llmDirectorMessage;
+    public void EndGame()
+    {
+        aiCharacterAnimator.SetTrigger("Death");
+        Debug.Log("The true name has been revealed, you won the game!");
+    }
 }
