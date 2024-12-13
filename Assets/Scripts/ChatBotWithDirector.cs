@@ -84,12 +84,42 @@ namespace LLMUnitySamples
             playerBubble.OnResize(UpdateBubblePositions);
             aiBubble.OnResize(UpdateBubblePositions);
 
-            Task chatTask = llmCharacter.Chat(message, aiBubble.SetText, AllowInput);
+            llmDirector.ReceivePlayerMessage(message);
 
-            llmDirectorCharacter.Chat(message, aiBubble.SetText, AllowInput);
+            Task chatTask = llmCharacter.Chat(message, (string text) =>
+            {
+                aiBubble.SetText(text);
+                llmCharacterMessage = text;
+            }, completionCallback: () =>
+            {
+                AllowInput();
+                llmDirector.ReceiveAICharacterMessage(llmCharacterMessage);
+
+                //director receives the ai character message too
+                _ = llmDirectorCharacter.Chat(llmCharacterMessage, (string text) =>
+                {
+                    llmDirectorMessageFromAICharacter = text;
+                }, completionCallback: () =>
+                {
+                    AllowInput();
+                    llmDirector.ReceiveAIDirectorMessageInResponseToAICharacterMessage(llmDirectorMessageFromAICharacter);
+                });
+            });
+
+            //director receives the player input too
+            _ = llmDirectorCharacter.Chat(message, (string text) =>
+            {
+                llmDirectorMessageFromPlayer = text;
+            }, completionCallback: () =>
+            {
+                AllowInput();
+                llmDirector.ReceiveAIDirectorMessageInResponseToPlayerMessage(llmDirectorMessageFromPlayer);
+            });
 
             inputBubble.SetText("");
         }
+
+        private string llmCharacterMessage, llmDirectorMessageFromPlayer, llmDirectorMessageFromAICharacter;
 
         public void WarmUpCallback()
         {
