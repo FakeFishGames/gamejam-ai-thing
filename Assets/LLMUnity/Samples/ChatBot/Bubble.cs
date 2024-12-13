@@ -219,12 +219,15 @@ namespace LLMUnitySamples
         public void FixCaretSorting()
         {
             GameObject caret = GameObject.Find($"{inputField.name} Input Caret");
-            Canvas bubbleCanvas = caret.GetComponent<Canvas>();
-            if (bubbleCanvas == null)
+            if (caret)
             {
-                bubbleCanvas = caret.AddComponent<Canvas>();
-                bubbleCanvas.overrideSorting = true;
-                bubbleCanvas.sortingOrder = 3;
+                Canvas bubbleCanvas = caret.GetComponent<Canvas>();
+                if (bubbleCanvas == null)
+                {
+                    bubbleCanvas = caret.AddComponent<Canvas>();
+                    bubbleCanvas.overrideSorting = true;
+                    bubbleCanvas.sortingOrder = 3;
+                }
             }
         }
 

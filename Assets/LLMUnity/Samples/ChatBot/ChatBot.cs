@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -28,8 +29,6 @@ namespace LLMUnitySamples
         private BubbleUI playerUI, aiUI;
         private bool warmUpDone = false;
         private int lastBubbleOutsideFOV = -1;
-
-        public FirstPersonController firstPersonController;
 
         void Start()
         {
@@ -64,7 +63,7 @@ namespace LLMUnitySamples
 
         void onInputFieldSubmit(string newText)
         {
-            //inputBubble.ActivateInputField();
+            inputBubble.ActivateInputField();
             if (blockInput || newText.Trim() == "" || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 StartCoroutine(BlockInteraction());
@@ -95,7 +94,7 @@ namespace LLMUnitySamples
         public void AllowInput()
         {
             blockInput = false;
-            //inputBubble.ReActivateInputField();
+            inputBubble.ReActivateInputField();
         }
 
         public void CancelRequests()
@@ -112,6 +111,16 @@ namespace LLMUnitySamples
             inputBubble.setInteractable(true);
             // change the caret position to the end of the text
             inputBubble.MoveTextEnd();
+        }
+        
+        IEnumerator WaitForWarmup()
+        {
+            while (!warmUpDone)
+            {
+                yield return null;
+            }
+
+            ActivateInput();
         }
 
         void onValueChanged(string newText)
@@ -143,20 +152,21 @@ namespace LLMUnitySamples
             }
         }
 
-        void Update()
+        public void ActivateInput()
         {
             if (!inputBubble.inputFocused() && warmUpDone)
             {
-                //inputBubble.ActivateInputField();
-                //StartCoroutine(BlockInteraction());
+                if (warmUpDone)
+                {
+                    inputBubble.ActivateInputField();
+                    StartCoroutine(BlockInteraction());
+                }
             }
+        }
 
-            if (firstPersonController != null)
-            {
-                firstPersonController.enabled = !inputBubble.inputFocused();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Return))
+        void Update()
+        {
+            if (!inputBubble.inputFocused() && warmUpDone)
             {
                 inputBubble.ActivateInputField();
                 StartCoroutine(BlockInteraction());

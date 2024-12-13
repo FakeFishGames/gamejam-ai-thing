@@ -1,42 +1,48 @@
+using LLMUnitySamples;
 using UnityEngine;
-using UnityEngine.UI;
+using StarterAssets;
+using UnityEngine.Serialization;
 
 public class InteractablePrompt : MonoBehaviour, IInteractable
 {
-    private Outline Outline;
-    private Canvas Canvas;
+    private Outline outline;
+    [FormerlySerializedAs("Canvas")] [SerializeField]
+    private Canvas canvas;
+    [FormerlySerializedAs("ChatBot")] [SerializeField]
+    private ChatBot chatBot;
+    [SerializeField]
+    private FirstPersonController firstPersonController;
 
     void Start()
     {
         // Ensure the object has an Outline component
-        Outline = GetComponent<Outline>();
-        if (Outline != null)
+        outline = GetComponent<Outline>();
+        if (outline != null)
         {
-            Outline.enabled = false; // Disable the outline initially
+            outline.enabled = false; // Disable the outline initially
         }
-
-        Canvas = FindAnyObjectByType<Canvas>();
-        if (Canvas)
-        {
-            Canvas.gameObject.SetActive(false);
-        }
+        
+        canvas.gameObject.SetActive(false);
     }
 
     public void Interact()
     {
-        Canvas.gameObject.SetActive(true);
+        canvas.gameObject.SetActive(true);
+        //chatBot.ActivateInput();
+        firstPersonController.enabled = false;
     }
 
     public void SetHighlight(bool bState)
     {
-        if (Outline)
+        if (outline)
         {
-            Outline.enabled = bState;
+            outline.enabled = bState;
         }
     }
 
     public void StopInteract()
     {
-        Canvas.gameObject.SetActive(false);
+        canvas.gameObject.SetActive(false);
+        firstPersonController.enabled = true;
     }
 }
