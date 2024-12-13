@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 701e58ef016ac5341afbbc9570cf24d9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 22100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 232410
+  packageName: Modular Prison Asset Pack
+  packageVersion: 1.0
+  assetPath: Assets/7th Side/Samples/Raven's Nest Penitentiary/Toggle Double Doors.overrideController
+  uploadId: 538226

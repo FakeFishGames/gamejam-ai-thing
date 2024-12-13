@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: fd01717778cbe3d45a5374c6903e832b
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123558
+  packageName: Customize Monitor Interface
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Monitor/Materials/ball floating.mp4
+  uploadId: 259300
+VideoClipImporter:
+  externalObjects: {}
+  serializedVersion: 3
+  frameRange: 0
+  startFrame: -1
+  endFrame: -1
+  colorSpace: 0
+  deinterlace: 0
+  encodeAlpha: 0
+  flipVertical: 0
+  flipHorizontal: 0
+  importAudio: 1
+  targetSettings: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 13db0b795570e514d9ca4d905d4abb93
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 100100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 123558
+  packageName: Customize Monitor Interface
+  packageVersion: 1.0
+  assetPath: Assets/Interactive Monitor/Prefabs/CRT Display.prefab
+  uploadId: 259300

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,6 +17,8 @@ namespace LLMUnitySamples
         public int fontSize = 16;
         public int bubbleWidth = 600;
         public LLMCharacter llmCharacter;
+        public LLMCharacter llmDirectorCharacter;
+        public LLMDirector llmDirector;
         public float textPadding = 10f;
         public float bubbleSpacing = 10f;
         public Sprite sprite;
@@ -59,6 +60,7 @@ namespace LLMUnitySamples
             inputBubble.setInteractable(false);
             stopButton.gameObject.SetActive(true);
             _ = llmCharacter.Warmup(WarmUpCallback);
+            _ = llmDirectorCharacter.Warmup(WarmUpCallback);
         }
 
         void onInputFieldSubmit(string newText)
@@ -80,9 +82,22 @@ namespace LLMUnitySamples
             playerBubble.OnResize(UpdateBubblePositions);
             aiBubble.OnResize(UpdateBubblePositions);
 
-            Task chatTask = llmCharacter.Chat(message, aiBubble.SetText, AllowInput);
+            llmDirector.ReceivePlayerMessage(message);
+
+            Task chatTask = llmCharacter.Chat(message, (string text) =>
+            {
+                aiBubble.SetText(text);
+                llmCharacterMessage = text;
+            }, completionCallback: () =>
+            {
+                AllowInput();
+                llmDirector.ReceiveAICharacterMessage(llmCharacterMessage);
+            });
+            
             inputBubble.SetText("");
         }
+        
+        private string llmCharacterMessage, llmDirectorMessageFromPlayer, llmDirectorMessageFromAICharacter;
 
         public void WarmUpCallback()
         {
@@ -100,6 +115,7 @@ namespace LLMUnitySamples
         public void CancelRequests()
         {
             llmCharacter.CancelRequests();
+            llmDirectorCharacter.CancelRequests();
             AllowInput();
         }
 
@@ -111,16 +127,6 @@ namespace LLMUnitySamples
             inputBubble.setInteractable(true);
             // change the caret position to the end of the text
             inputBubble.MoveTextEnd();
-        }
-        
-        IEnumerator WaitForWarmup()
-        {
-            while (!warmUpDone)
-            {
-                yield return null;
-            }
-
-            ActivateInput();
         }
 
         void onValueChanged(string newText)
@@ -151,19 +157,7 @@ namespace LLMUnitySamples
                 y += bubble.GetSize().y + bubbleSpacing;
             }
         }
-
-        public void ActivateInput()
-        {
-            if (!inputBubble.inputFocused() && warmUpDone)
-            {
-                if (warmUpDone)
-                {
-                    inputBubble.ActivateInputField();
-                    StartCoroutine(BlockInteraction());
-                }
-            }
-        }
-
+        
         void Update()
         {
             if (!inputBubble.inputFocused() && warmUpDone)
@@ -196,6 +190,11 @@ namespace LLMUnitySamples
             if (onValidateWarning && !llmCharacter.remote && llmCharacter.llm != null && llmCharacter.llm.model == "")
             {
                 Debug.LogWarning($"Please select a model in the {llmCharacter.llm.gameObject.name} GameObject!");
+                onValidateWarning = false;
+            }
+            if (onValidateWarning && !llmDirectorCharacter.remote && llmDirectorCharacter.llm != null && llmDirectorCharacter.llm.model == "")
+            {
+                Debug.LogWarning($"Please select a model in the {llmDirectorCharacter.llm.gameObject.name} GameObject!");
                 onValidateWarning = false;
             }
         }

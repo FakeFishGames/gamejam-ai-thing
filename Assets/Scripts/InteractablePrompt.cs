@@ -2,6 +2,7 @@ using LLMUnitySamples;
 using UnityEngine;
 using StarterAssets;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 public class InteractablePrompt : MonoBehaviour, IInteractable
 {
@@ -12,6 +13,8 @@ public class InteractablePrompt : MonoBehaviour, IInteractable
     private ChatBot chatBot;
     [SerializeField]
     private FirstPersonController firstPersonController;
+    [SerializeField] 
+    private Text MonitorText;
 
     void Start()
     {
@@ -23,6 +26,7 @@ public class InteractablePrompt : MonoBehaviour, IInteractable
         }
         
         canvas.gameObject.SetActive(false);
+        MonitorText.text = "";
     }
 
     public void Interact()
