@@ -1,9 +1,6 @@
-using System.Linq;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class TitleScreen : MonoBehaviour
+public class EndScreen : MonoBehaviour
 {
     public GameObject[] objectsToEnable;
 
@@ -27,7 +24,7 @@ public class TitleScreen : MonoBehaviour
         {
             if (currentIndex >= objectsToEnable.Length)
             {
-                SceneManager.LoadScene(1);
+                Application.Quit();
             }
             else
             {
