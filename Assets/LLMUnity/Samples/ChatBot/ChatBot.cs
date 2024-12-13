@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using LLMUnity;
 using UnityEngine.UI;
+using StarterAssets;
 
 namespace LLMUnitySamples
 {
@@ -28,6 +29,8 @@ namespace LLMUnitySamples
         private bool warmUpDone = false;
         private int lastBubbleOutsideFOV = -1;
 
+        public FirstPersonController firstPersonController;
+
         void Start()
         {
             if (font == null) font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
@@ -51,6 +54,8 @@ namespace LLMUnitySamples
 
             inputBubble = new InputBubble(chatContainer, playerUI, "InputBubble", "Loading...", 4);
             inputBubble.AddSubmitListener(onInputFieldSubmit);
+            inputBubble.AddSubmitListener(onInputFieldSubmit);
+
             inputBubble.AddValueChangedListener(onValueChanged);
             inputBubble.setInteractable(false);
             stopButton.gameObject.SetActive(true);
@@ -59,7 +64,7 @@ namespace LLMUnitySamples
 
         void onInputFieldSubmit(string newText)
         {
-            inputBubble.ActivateInputField();
+            //inputBubble.ActivateInputField();
             if (blockInput || newText.Trim() == "" || Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             {
                 StartCoroutine(BlockInteraction());
@@ -90,7 +95,7 @@ namespace LLMUnitySamples
         public void AllowInput()
         {
             blockInput = false;
-            inputBubble.ReActivateInputField();
+            //inputBubble.ReActivateInputField();
         }
 
         public void CancelRequests()
@@ -142,9 +147,21 @@ namespace LLMUnitySamples
         {
             if (!inputBubble.inputFocused() && warmUpDone)
             {
+                //inputBubble.ActivateInputField();
+                //StartCoroutine(BlockInteraction());
+            }
+
+            if (firstPersonController != null)
+            {
+                firstPersonController.enabled = !inputBubble.inputFocused();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
                 inputBubble.ActivateInputField();
                 StartCoroutine(BlockInteraction());
             }
+
             if (lastBubbleOutsideFOV != -1)
             {
                 // destroy bubbles outside the container
