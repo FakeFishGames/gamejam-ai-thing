@@ -94,26 +94,6 @@ namespace LLMUnitySamples
             {
                 AllowInput();
                 llmDirector.ReceiveAICharacterMessage(llmCharacterMessage);
-
-                //director receives the ai character message too
-                _ = llmDirectorCharacter.Chat(llmCharacterMessage, (string text) =>
-                {
-                    llmDirectorMessageFromAICharacter = text;
-                }, completionCallback: () =>
-                {
-                    AllowInput();
-                    llmDirector.ReceiveAIDirectorMessageInResponseToAICharacterMessage(llmDirectorMessageFromAICharacter);
-                });
-            });
-
-            //director receives the player input too
-            _ = llmDirectorCharacter.Chat(message, (string text) =>
-            {
-                llmDirectorMessageFromPlayer = text;
-            }, completionCallback: () =>
-            {
-                AllowInput();
-                llmDirector.ReceiveAIDirectorMessageInResponseToPlayerMessage(llmDirectorMessageFromPlayer);
             });
 
             inputBubble.SetText("");
