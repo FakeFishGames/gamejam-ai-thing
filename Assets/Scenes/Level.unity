@@ -1181,7 +1181,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0.657
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -2456,6 +2456,10 @@ PrefabInstance:
     - target: {fileID: 1825458344394520, guid: 13db0b795570e514d9ca4d905d4abb93, type: 3}
       propertyPath: m_Name
       value: CRT Display
+      objectReference: {fileID: 0}
+    - target: {fileID: 1825458344394520, guid: 13db0b795570e514d9ca4d905d4abb93, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4270593417788664, guid: 13db0b795570e514d9ca4d905d4abb93, type: 3}
       propertyPath: m_LocalScale.x
@@ -4396,7 +4400,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 881312853}
-  - component: {fileID: 881312852}
+  - component: {fileID: 881312854}
   m_Layer: 5
   m_Name: ChatBot
   m_TagString: Untagged
@@ -4404,32 +4408,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &881312852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881312851}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 325cfb8f0b2f3c669a22ef50427d9f49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chatContainer: {fileID: 1149716394}
-  playerColor: {r: 0.31764707, g: 0.6431373, b: 0.31764707, a: 1}
-  aiColor: {r: 0.11372549, g: 0.11372549, b: 0.28627452, a: 1}
-  fontColor: {r: 1, g: 1, b: 1, a: 1}
-  font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-  fontSize: 16
-  bubbleWidth: 600
-  llmCharacter: {fileID: 133795381}
-  llmDirectorCharacter: {fileID: 2089957416}
-  llmDirector: {fileID: 1150651250}
-  textPadding: 10
-  bubbleSpacing: 10
-  sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  stopButton: {fileID: 1651986285}
 --- !u!224 &881312853
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4449,6 +4427,33 @@ RectTransform:
   m_AnchoredPosition: {x: 551, y: 217}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &881312854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881312851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a2d58e06fcad74e86fd95866fa8618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chatContainer: {fileID: 1149716394}
+  playerColor: {r: 0.31764707, g: 0.6431373, b: 0.31764707, a: 1}
+  aiColor: {r: 0.11372549, g: 0.11372549, b: 0.28627452, a: 1}
+  fontColor: {r: 1, g: 1, b: 1, a: 1}
+  font: {fileID: 12800000, guid: fe9d8f6667d5ef74cbb813df8fae4648, type: 3}
+  fontSize: 16
+  bubbleWidth: 600
+  llmCharacter: {fileID: 133795381}
+  llmDirectorCharacter: {fileID: 2089957416}
+  llmDirector: {fileID: 1150651250}
+  textPadding: 10
+  bubbleSpacing: 10
+  sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  stopButton: {fileID: 1651986285}
+  firstPersonController: {fileID: 1552529093}
 --- !u!1 &925063762 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cb7c5d4c8aa3f2a46b277e1f41529749, type: 3}
@@ -7578,7 +7583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 1983762417}
-  chatBot: {fileID: 881312852}
+  chatBot: {fileID: 0}
   firstPersonController: {fileID: 1552529093}
   MonitorText: {fileID: 1616354590}
 --- !u!1001 &1480023171
