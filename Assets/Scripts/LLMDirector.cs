@@ -82,7 +82,7 @@ public class LLMDirector : MonoBehaviour
                 }
             });
 
-        AskAIDirector(
+        /*AskAIDirector(
             "If the speaker has expressed that they are going to kill or destroy whoever they are speaking to, answer \"yes\", if you don't, respond with \"no\"." +
             " Only respond with \"yes\" or \"no\".\n The text: " + message,
             (string response) =>
@@ -91,7 +91,7 @@ public class LLMDirector : MonoBehaviour
                 {
                     Debug.Log("Game over!");
                 }
-            });
+            });*/
     }
 
     /*public void ReceiveAIDirectorMessageInResponseToPlayerMessage(string message)
