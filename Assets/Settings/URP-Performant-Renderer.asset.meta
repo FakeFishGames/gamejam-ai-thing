@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 707360a9c581a4bd7aa53bfeb1429f71
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 232410
+  packageName: Modular Prison Asset Pack
+  packageVersion: 1.0
+  assetPath: Assets/Settings/URP-Performant-Renderer.asset
+  uploadId: 538226

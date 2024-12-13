@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3cd83c35b512a0a41a605cf97f4cb507
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 22100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 232410
+  packageName: Modular Prison Asset Pack
+  packageVersion: 1.0
+  assetPath: Assets/7th Side/Samples/Raven's Nest Penitentiary/Toggle Single Doors.overrideController
+  uploadId: 538226

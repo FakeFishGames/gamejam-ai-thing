@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 03111f0024982aa4ea0f722b69583474
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 232410
+  packageName: Modular Prison Asset Pack
+  packageVersion: 1.0
+  assetPath: Assets/7th Side/Samples/Raven's Nest Penitentiary/Toggle Sliding Doors.controller
+  uploadId: 538226

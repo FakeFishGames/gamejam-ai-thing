@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 52f0a07ad0f8b5346bb2bacc3da25e5d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 232410
+  packageName: Modular Prison Asset Pack
+  packageVersion: 1.0
+  assetPath: Assets/7th Side/Samples/Showcase/FlyCam.cs
+  uploadId: 538226
