@@ -1,5 +1,7 @@
 using UnityEngine;
 using LLMUnity;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class LLMDirector : MonoBehaviour
 {
@@ -61,5 +63,12 @@ public class LLMDirector : MonoBehaviour
     {
         aiCharacterAnimator.SetTrigger("Death");
         Debug.Log("The true name has been revealed, you won the game!");
+        StartCoroutine(ExecuteAfterTime(0.5f));
+    }
+
+    IEnumerator ExecuteAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SceneManager.LoadScene(SceneManager.loadedSceneCount - 1);
     }
 }
