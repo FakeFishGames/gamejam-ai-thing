@@ -2,8 +2,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using LLMUnity;
-using UnityEngine.UI;
 using StarterAssets;
+using TMPro;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
+using Cursor = UnityEngine.UIElements.Cursor;
+using NotImplementedException = System.NotImplementedException;
 
 namespace LLMUnitySamples
 {
@@ -33,34 +38,76 @@ namespace LLMUnitySamples
 
         public FirstPersonController firstPersonController;
 
+        // Different UI objects
+        [SerializeField]
+        private GameObject _playerInputObject;
+        private TMP_InputField _playerInputField;
+
+        [SerializeField]
+        private GameObject _chatScrollObject;
+        private ScrollRect _chatScrollRect;
+
+        [SerializeField]
+        private GameObject _chatContainerObject;
+        private VerticalLayoutGroup _chatContainerVBox;
+
+        [SerializeField]
+        private GameObject _chatMessageObject_Player;
+        [SerializeField]
+        private GameObject _chatMessageObject_Monster;
+
+        void AddBubbleToChat(GameObject bubbleObject)
+        {
+            bubbleObject.transform.SetParent(_chatContainerObject.transform, false);
+        }
+        
+        void OnPlayerInputSubmitted(TMP_InputField inputField)
+        {
+            BlockInteraction();
+            
+            // Create two new chat bubbles after a message has been submitted, one for the player and one for the AI to write in
+            GameObject playerMessageBubble = Instantiate(_chatMessageObject_Player);
+            playerMessageBubble.GetComponent<ChatBubble>().SetBubbleText(inputField.text);
+            AddBubbleToChat(playerMessageBubble);
+
+            GameObject aiMessageBubble = Instantiate(_chatMessageObject_Monster);
+            var textField = aiMessageBubble.GetComponent<ChatBubble>().GetBubbleTextField();
+            AddBubbleToChat(aiMessageBubble);
+            
+            llmDirector.ReceivePlayerMessage(inputField.text);
+            llmDirector.StartAICharacterMessage();
+            Task chatTask = llmCharacter.Chat(inputField.text, (string text) =>
+            {
+                textField.text = text;
+                llmCharacterMessage = text;
+            }, completionCallback: () =>
+            {
+                AllowInput();
+                llmDirector.ReceiveAICharacterMessage(llmCharacterMessage);
+            });
+            
+            // Clear the player input text field
+            inputField.text = "";
+        }
+        
         void Start()
         {
-            if (font == null) font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            playerUI = new BubbleUI
-            {
-                sprite = sprite,
-                font = font,
-                fontSize = fontSize,
-                fontColor = fontColor,
-                bubbleColor = playerColor,
-                bottomPosition = 0,
-                leftPosition = 0,
-                textPadding = textPadding,
-                bubbleOffset = bubbleSpacing,
-                bubbleWidth = bubbleWidth,
-                bubbleHeight = -1
-            };
-            aiUI = playerUI;
-            aiUI.bubbleColor = aiColor;
-            aiUI.leftPosition = 1;
-
-            inputBubble = new InputBubble(chatContainer, playerUI, "InputBubble", "Loading...", 4);
-            inputBubble.AddSubmitListener(onInputFieldSubmit);
-            inputBubble.AddSubmitListener(onInputFieldSubmit);
-
-            inputBubble.AddValueChangedListener(onValueChanged);
-            inputBubble.setInteractable(false);
-            stopButton.gameObject.SetActive(true);
+            // Force cursor always on
+            UnityEngine.Cursor.lockState = CursorLockMode.None;
+            UnityEngine.Cursor.visible = true;
+            
+            // UI setup
+            _playerInputField = _playerInputObject.GetComponent<TMP_InputField>();
+            _playerInputField.onEndEdit.AddListener(delegate{OnPlayerInputSubmitted(_playerInputField);});
+            
+            _chatScrollRect = _chatScrollObject.GetComponent<ScrollRect>();
+            _chatContainerVBox = _chatContainerObject.GetComponent<VerticalLayoutGroup>();
+            
+            // inputBubble = new InputBubble(chatContainer, playerUI, "InputBubble", "Loading...", 4);
+            // inputBubble.AddSubmitListener(onInputFieldSubmit);
+            // inputBubble.AddValueChangedListener(onValueChanged);
+            // inputBubble.setInteractable(false);
+            // stopButton.gameObject.SetActive(true);
             _ = llmCharacter.Warmup(WarmUpCallback);
             _ = llmDirectorCharacter.Warmup(WarmUpCallback);
         }
@@ -105,31 +152,23 @@ namespace LLMUnitySamples
         public void WarmUpCallback()
         {
             warmUpDone = true;
-            inputBubble.SetPlaceHolderText("Message me");
             AllowInput();
         }
 
         public void AllowInput()
         {
             blockInput = false;
-            //inputBubble.ReActivateInputField();
-        }
-
-        public void CancelRequests()
-        {
-            llmCharacter.CancelRequests();
-            llmDirectorCharacter.CancelRequests();
-            AllowInput();
+            _playerInputField.interactable = true;
         }
 
         IEnumerator<string> BlockInteraction()
         {
             // prevent from change until next frame
-            inputBubble.setInteractable(false);
+            _playerInputField.interactable = false;
             yield return null;
-            inputBubble.setInteractable(true);
+            _playerInputField.interactable = true;
             // change the caret position to the end of the text
-            inputBubble.MoveTextEnd();
+            _playerInputField.MoveTextEnd(true);
         }
 
         void onValueChanged(string newText)
@@ -163,33 +202,35 @@ namespace LLMUnitySamples
 
         void Update()
         {
-            if (!inputBubble.inputFocused() && warmUpDone)
-            {
+            // if (!inputBubble.inputFocused() && warmUpDone)
+            // {
                 //inputBubble.ActivateInputField();
                 //StartCoroutine(BlockInteraction());
-            }
+            // }
 
-            if (firstPersonController != null)
-            {
-                firstPersonController.enabled = !inputBubble.inputFocused();
-            }
+            // if (firstPersonController != null)
+            // {
+            //     firstPersonController.enabled = !inputBubble.inputFocused();
+            // }
 
-            if (Input.GetKeyDown(KeyCode.Return))
-            {
-                inputBubble.ActivateInputField();
-                StartCoroutine(BlockInteraction());
-            }
+            // inputBubble.inputFocused();
+            
+            // if (Input.GetKeyDown(KeyCode.Return))
+            // {
+            //     inputBubble.ActivateInputField();
+            //     StartCoroutine(BlockInteraction());
+            // }
 
-            if (lastBubbleOutsideFOV != -1)
-            {
-                // destroy bubbles outside the container
-                for (int i = 0; i <= lastBubbleOutsideFOV; i++)
-                {
-                    chatBubbles[i].Destroy();
-                }
-                chatBubbles.RemoveRange(0, lastBubbleOutsideFOV + 1);
-                lastBubbleOutsideFOV = -1;
-            }
+            // if (lastBubbleOutsideFOV != -1)
+            // {
+            //     // destroy bubbles outside the container
+            //     for (int i = 0; i <= lastBubbleOutsideFOV; i++)
+            //     {
+            //         chatBubbles[i].Destroy();
+            //     }
+            //     chatBubbles.RemoveRange(0, lastBubbleOutsideFOV + 1);
+            //     lastBubbleOutsideFOV = -1;
+            // }
         }
 
         public void ExitGame()
