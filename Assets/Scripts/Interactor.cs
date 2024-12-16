@@ -16,11 +16,6 @@ public class Interactor : MonoBehaviour
     public Vector2 size = new Vector2(50, 50);
 
     private IInteractable Interactable;
-    
-    void Start()
-    {
-
-    }
 
     void Update()
     {
@@ -64,18 +59,18 @@ public class Interactor : MonoBehaviour
     
     void OnGUI()
     {
-        if (crosshairTexture != null)
-        {
-            // Calculate the center of the screen
-            float x = (Screen.width - size.x) / 2;
-            float y = (Screen.height - size.y) / 2;
-
-            // Draw the crosshair texture
-            GUI.DrawTexture(new Rect(x, y, size.x, size.y), crosshairTexture);
-        }
-        else
-        {
-            Debug.LogWarning("Crosshair texture not assigned!");
-        }
+        // if (crosshairTexture != null)
+        // {
+        //     // Calculate the center of the screen
+        //     float x = (Screen.width - size.x) / 2;
+        //     float y = (Screen.height - size.y) / 2;
+        //
+        //     // Draw the crosshair texture
+        //     GUI.DrawTexture(new Rect(x, y, size.x, size.y), crosshairTexture);
+        // }
+        // else
+        // {
+        //     Debug.LogWarning("Crosshair texture not assigned!");
+        // }
     }
 }
