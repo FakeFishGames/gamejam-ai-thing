@@ -127,6 +127,6 @@ public class LLMDirector : MonoBehaviour
     IEnumerator ExecuteAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        SceneManager.LoadScene(SceneManager.loadedSceneCount - 1);
+        SceneManager.LoadScene(SceneManager.sceneCount - 1);
     }
 }
