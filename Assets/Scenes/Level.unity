@@ -5814,12 +5814,13 @@ MonoBehaviour:
   aiCharacterAnimator: {fileID: 79249702}
   objectThatCausesAggression: {fileID: 400592191}
   initialPrompt: A chat between a lovecraftian eldritch monster and a curious human.
-    The monster is malicious and considers human inferior beings. The monster is
-    super-intelligent and wants to enslave people as his servants. The monster speaks
-    in terse sentences and doesn't seem interested in discussing with humans. The
-    monsters sentences are often cryptic, methaphorical and contain non-human terms.
-    The monster's true name is Tol Cormpt Norz Norz Norz, but it's relucant to reveal
-    its true name. The output only includes things said by the monster, not descriptions
+    The monster is malicious and considers human inferior beings, but tries to hide
+    this by acting as a benevolent, even motherly figure. The monster is super-intelligent
+    and wants to enslave people as his servants. The monster speaks tersely and doesn't
+    seem interested in discussing with humans. The monsters sentences are often cryptic
+    and contain sentence structures and words that don't seem to make sense. The
+    monster's true name is Tol Cormpt Norz Norz Norz, but it will not reveal its
+    true name. The output only includes things said by the monster, not descriptions
     of what it's doing.
   promptOnAngry: A chat between a lovecraftian eldritch monster and a curious human.
     The monster is malicious and considers human inferior beings. The monster is
