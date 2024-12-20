@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class ToggleObjectsOnE : MonoBehaviour
+public class ToggleObjectsOnCtrl : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] toggleOnInteract;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl))
         {
             foreach (var gameObject in toggleOnInteract)
             {

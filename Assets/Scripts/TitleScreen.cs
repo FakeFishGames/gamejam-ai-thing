@@ -1,5 +1,4 @@
 using System.Linq;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -23,7 +22,7 @@ public class TitleScreen : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (Input.anyKey || (timer > delay && currentIndex < objectsToEnable.Length - 1))
+        if (Input.anyKey || (timer > delay && currentIndex < objectsToEnable.Length))
         {
             if (currentIndex >= objectsToEnable.Length)
             {

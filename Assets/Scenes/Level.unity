@@ -151,6 +151,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1637972396772703816, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743499475819016355, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2097930668788741497, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -190,6 +198,34 @@ PrefabInstance:
     - target: {fileID: 2097930668788741497, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689580813051758834, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689580813051758834, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689580813051758834, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689580813051758834, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689580813051758834, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -728.0018
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689580813051758834, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3689580813051758834, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4074243575787701400, guid: e8ee832dcd2ade84f99de524eacc727a, type: 3}
       propertyPath: m_SizeDelta.y
@@ -7776,7 +7812,6 @@ MonoBehaviour:
   InteractorSource: {fileID: 1335054620}
   crosshairTexture: {fileID: 10912, guid: 0000000000000000f000000000000000, type: 0}
   size: {x: 10, y: 10}
-  RaycastToCursorPosition: 1
 --- !u!114 &1552529097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7972,7 +8007,7 @@ GameObject:
   - component: {fileID: 1579829105}
   - component: {fileID: 1579829104}
   m_Layer: 5
-  m_Name: HelpTextPressE
+  m_Name: HelpTextPressCtrl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8030,7 +8065,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Press E to toggle lights
+  m_Text: Press CTRL to toggle lights
 --- !u!222 &1579829105
 CanvasRenderer:
   m_ObjectHideFlags: 0
